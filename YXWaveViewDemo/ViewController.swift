@@ -16,13 +16,23 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = UIColor.redColor()
         
-        let frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: 200)
+        let avatarFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        let avatarView = UIView(frame: avatarFrame)
+        avatarView.backgroundColor = UIColor.blueColor()
+        
+        
+        let frame = CGRect(x: 0, y: 50, width: self.view.bounds.size.width, height: 150)
         let waterView = YXWaveView(frame: frame, color: UIColor.whiteColor())
+        waterView.addOverView(avatarView);
+        
         let bgframe = CGRect(x: 0, y: 200, width: self.view.bounds.size.width, height: self.view.bounds.size.height - 200)
         let bgView = UIView(frame: bgframe)
         bgView.backgroundColor = UIColor.whiteColor();
+        
         self.view.addSubview(waterView)
         self.view.addSubview(bgView)
+        
+        
         waterView.start(20)
     }
 

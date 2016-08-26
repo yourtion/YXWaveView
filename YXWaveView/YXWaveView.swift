@@ -9,29 +9,14 @@
 import UIKit
 
 public class YXWaveView: UIView {
+
+    public var waveCurvature: CGFloat = 1.5 // 浪弯曲度
+    public var waveSpeed: CGFloat = 0.5 // 浪速
+    public var waveHeight: CGFloat = 4 // 浪高
+    public var realWaveColor: UIColor = UIColor.redColor() // 实浪颜色
+    public var maskWaveColor: UIColor = UIColor.redColor() // 遮罩浪颜色
     
-    
-    /**
-     *  浪弯曲度
-     */
-    public var waveCurvature: CGFloat = 1.5
-    /**
-     *  浪速
-     */
-    public var waveSpeed: CGFloat = 0.5
-    
-    /**
-     *  浪高
-     */
-    public var waveHeight: CGFloat = 4
-    /**
-     *  实浪颜色
-     */
-    public var realWaveColor: UIColor = UIColor.redColor()
-    /**
-     *  遮罩浪颜色
-     */
-    public var maskWaveColor: UIColor = UIColor.redColor()
+    public var overView: UIView?
     
     private var timer: CADisplayLink?
     private var realWaveLayer :CAShapeLayer = CAShapeLayer()
@@ -47,7 +32,7 @@ public class YXWaveView: UIView {
         frame.size.height = self.waveHeight;
         maskWaveLayer.frame = frame
         realWaveLayer.frame = frame
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.orangeColor()
     }
     
     public convenience init(frame: CGRect, color:UIColor) {
@@ -69,6 +54,12 @@ public class YXWaveView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public func addOverView(view: UIView) {
+        overView = view
+        overView?.center = self.center
+        self.addSubview(overView!)
+    }
+    
     public func start(speed: Double) {
         stop();
         timer = CADisplayLink(target: self, selector: #selector(wave))
@@ -83,10 +74,10 @@ public class YXWaveView: UIView {
     }
     
     func wave() {
-        offset += self.waveSpeed;
+        offset += waveSpeed;
         
-        let width = CGRectGetWidth(self.frame)
-        let height = self.waveHeight
+        let width = CGRectGetWidth(frame)
+        let height = waveHeight
         
         //真实浪
         let path = CGPathCreateMutable()
@@ -107,9 +98,10 @@ public class YXWaveView: UIView {
         //变化的中间Y值
         let centX = self.bounds.size.width/2
         let CentY = CGFloat(height) * CGFloat(sinf(0.01 * Float(waveCurvature) * Float(centX)  + Float(offset) * 0.045))
-//        if (self.waveBlock) {
-//            self.waveBlock(CentY);
-//        }
+        if (overView != nil) {
+            let center = CGPoint(x: centX , y: CentY + overView!.bounds.size.height - waveHeight )
+            overView?.center = center;
+        }
         
         CGPathAddLineToPoint(path, nil, width, height);
         CGPathAddLineToPoint(path, nil, 0, height);
