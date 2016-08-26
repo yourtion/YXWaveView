@@ -12,6 +12,7 @@
 		CB79FF891D70035B00971FC3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB79FF871D70035B00971FC3 /* Main.storyboard */; };
 		CB79FF8B1D70035B00971FC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB79FF8A1D70035B00971FC3 /* Assets.xcassets */; };
 		CB79FF8E1D70035B00971FC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB79FF8C1D70035B00971FC3 /* LaunchScreen.storyboard */; };
+		CB79FF9C1D70041600971FC3 /* YXWaveView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB79FF9B1D70041600971FC3 /* YXWaveView.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		CB79FF8A1D70035B00971FC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB79FF8D1D70035B00971FC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB79FF8F1D70035B00971FC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB79FF9B1D70041600971FC3 /* YXWaveView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YXWaveView.framework; path = "../../../Library/Developer/Xcode/DerivedData/YXWaveViewDemo-gsltgqllkrtzbxgrgrgcnzfaaskc/Build/Products/Debug-iphoneos/YXWaveView.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB79FF9C1D70041600971FC3 /* YXWaveView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +41,7 @@
 		CB79FF771D70035B00971FC3 = {
 			isa = PBXGroup;
 			children = (
+				CB79FF9B1D70041600971FC3 /* YXWaveView.framework */,
 				CB79FF821D70035B00971FC3 /* YXWaveViewDemo */,
 				CB79FF811D70035B00971FC3 /* Products */,
 			);
@@ -251,6 +255,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = YXWaveViewDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourtion.YXWaveViewDemo;
@@ -262,6 +270,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = YXWaveViewDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourtion.YXWaveViewDemo;
@@ -288,6 +300,7 @@
 				CB79FF941D70035B00971FC3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

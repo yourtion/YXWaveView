@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		CB79FF701D70030500971FC3 /* YXWaveView.h in Headers */ = {isa = PBXBuildFile; fileRef = CB79FF6F1D70030500971FC3 /* YXWaveView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CB79FF9E1D70043900971FC3 /* YXWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB79FF9D1D70043900971FC3 /* YXWaveView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CB79FF6C1D70030500971FC3 /* YXWaveView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YXWaveView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB79FF6F1D70030500971FC3 /* YXWaveView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXWaveView.h; sourceTree = "<group>"; };
 		CB79FF711D70030500971FC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB79FF9D1D70043900971FC3 /* YXWaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YXWaveView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +50,7 @@
 			children = (
 				CB79FF6F1D70030500971FC3 /* YXWaveView.h */,
 				CB79FF711D70030500971FC3 /* Info.plist */,
+				CB79FF9D1D70043900971FC3 /* YXWaveView.swift */,
 			);
 			path = YXWaveView;
 			sourceTree = "<group>";
@@ -130,6 +133,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB79FF9E1D70043900971FC3 /* YXWaveView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +234,7 @@
 		CB79FF751D70030500971FC3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -240,12 +245,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourtion.YXWaveView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		CB79FF761D70030500971FC3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -278,6 +285,7 @@
 				CB79FF761D70030500971FC3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
