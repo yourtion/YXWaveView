@@ -7,9 +7,13 @@
 
 A water wave animation view with a over view float.
 
+## ScreenShot 
+
+![ScreenShot](ScreenShot.gif)
+
 ## Installl
 
-### CocoaPod
+#### CocoaPod
 
 `Podfile` add this:
 
@@ -21,38 +25,28 @@ pod 'YXWaveView'
 
 Run `pod install`
 
-### Carthage
+#### Carthage
 
 ```
 github "yourtion/YXWaveView"
 ```
 
-## Use
-
-### Init
+## How to use
 
 ```swift
+// Init
 let frame = CGRect(x: 0, y: 50, width: self.view.bounds.size.width, height: 150)
 let waterView = YXWaveView(frame: frame, color: UIColor.whiteColor())
 waterView.addOverView(avatarView);
-```
 
-### Add OverView
-
-```swift
+// Add OverView
 waterView.addOverView(overView);
-```
 
-### Start
-
-```swift
+// Start
 waterView.start()
-```
 
-### Stop
-
-```swift
+// Stop
 waterView.stop()
 ```
 
-see [Demo](YXWaveViewDemo/ViewController.swift)
+Detail [Demo](YXWaveViewDemo/ViewController.swift)
