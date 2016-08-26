@@ -11,8 +11,8 @@ import UIKit
 public class YXWaveView: UIView {
 
     public var waveCurvature: CGFloat = 1.5 // 浪弯曲度
-    public var waveSpeed: CGFloat = 0.5 // 浪速
-    public var waveHeight: CGFloat = 4 // 浪高
+    public var waveSpeed: CGFloat = 0.6 // 浪速
+    public var waveHeight: CGFloat = 5 // 浪高
     public var realWaveColor: UIColor = UIColor.redColor() // 实浪颜色
     public var maskWaveColor: UIColor = UIColor.redColor() // 遮罩浪颜色
     
@@ -32,7 +32,7 @@ public class YXWaveView: UIView {
         frame.size.height = self.waveHeight;
         maskWaveLayer.frame = frame
         realWaveLayer.frame = frame
-        self.backgroundColor = UIColor.orangeColor()
+        self.backgroundColor = UIColor.clearColor()
     }
     
     public convenience init(frame: CGRect, color:UIColor) {
@@ -60,7 +60,7 @@ public class YXWaveView: UIView {
         self.addSubview(overView!)
     }
     
-    public func start(speed: Double) {
+    public func start() {
         stop();
         timer = CADisplayLink(target: self, selector: #selector(wave))
         timer?.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
@@ -99,7 +99,7 @@ public class YXWaveView: UIView {
         let centX = self.bounds.size.width/2
         let CentY = CGFloat(height) * CGFloat(sinf(0.01 * Float(waveCurvature) * Float(centX)  + Float(offset) * 0.045))
         if (overView != nil) {
-            let center = CGPoint(x: centX , y: CentY + overView!.bounds.size.height - waveHeight )
+            let center = CGPoint(x: centX , y: CentY + overView!.bounds.size.height - waveHeight - 1 )
             overView?.center = center;
         }
         
