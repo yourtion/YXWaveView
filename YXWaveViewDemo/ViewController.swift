@@ -14,8 +14,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.view.backgroundColor = UIColor(red: 248/255, green: 64/255, blue: 87/255, alpha: 1)
+        // Init background view
+        let bgframe = CGRect(x: 0, y: 200, width: self.view.bounds.size.width, height: self.view.bounds.size.height - 200)
+        let bgView = UIView(frame: bgframe)
+        bgView.backgroundColor = UIColor.whiteColor();
         
+        // Init Avatar OverView
         let avatarFrame = CGRect(x: 0, y: 0, width: 60, height: 60)
         let avatarView = UIImageView(frame: avatarFrame)
         avatarView.layer.cornerRadius = CGRectGetHeight(avatarView.bounds)/2
@@ -28,14 +32,11 @@ class ViewController: UIViewController {
         let waterView = YXWaveView(frame: frame, color: UIColor.whiteColor())
         waterView.addOverView(avatarView);
         
-        let bgframe = CGRect(x: 0, y: 200, width: self.view.bounds.size.width, height: self.view.bounds.size.height - 200)
-        let bgView = UIView(frame: bgframe)
-        bgView.backgroundColor = UIColor.whiteColor();
-        
+        // Add WaveView and background
         self.view.addSubview(waterView)
         self.view.addSubview(bgView)
         
-        
+        // Start wave
         waterView.start()
     }
 
