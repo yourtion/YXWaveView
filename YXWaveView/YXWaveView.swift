@@ -10,8 +10,8 @@ import UIKit
 
 public class YXWaveView: UIView {
     
-    private var currentWaterColor: UIColor = UIColor.redColor()
-    private var currentLinePointY: CGFloat
+    public var currentWaterColor: UIColor
+    public var LineY : CGFloat = 0
     private var a: CGFloat
     private var b: CGFloat
     private var jia: Bool
@@ -21,12 +21,19 @@ public class YXWaveView: UIView {
         b = 0;
         jia = false;
         currentWaterColor = UIColor.redColor() //[UIColor colorWithRed:86/255.0f green:202/255.0f blue:139/255.0f alpha:1];
-        currentLinePointY = 250
+        LineY = 250
         
         super.init(frame: frame)
         self.backgroundColor = UIColor.clearColor()
         
         NSTimer.scheduledTimerWithTimeInterval(0.02, target: self, selector:#selector(animateWave), userInfo: nil, repeats: true)
+    }
+    
+    public convenience init(frame: CGRect, color:UIColor, y: CGFloat) {
+        self.init(frame: frame)
+        
+        currentWaterColor = color
+        LineY = y
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -59,17 +66,17 @@ public class YXWaveView: UIView {
         CGContextSetLineWidth(context, 1);
         CGContextSetFillColorWithColor(context, currentWaterColor.CGColor);
         
-        var y = currentLinePointY;
+        var y = LineY;
         CGPathMoveToPoint(path, nil, 0, y);
         let width = Int(self.frame.size.width)
         for x in 0...width {
-            y = a * sin( CGFloat(x)/180*CGFloat(M_PI) + 4*b/CGFloat(M_PI) ) * 5 + currentLinePointY;
-            CGPathAddLineToPoint(path, nil, CGFloat(x), y);
+            y = a * sin( CGFloat(x)/180*CGFloat(M_PI) + 4*b/CGFloat(M_PI) ) * 5 + LineY
+            CGPathAddLineToPoint(path, nil, CGFloat(x), y)
         }
         
-        CGPathAddLineToPoint(path, nil, 320, rect.size.height);
-        CGPathAddLineToPoint(path, nil, 0, rect.size.height);
-        CGPathAddLineToPoint(path, nil, 0, currentLinePointY);
+        CGPathAddLineToPoint(path, nil, 320, rect.size.height)
+        CGPathAddLineToPoint(path, nil, 0, rect.size.height)
+        CGPathAddLineToPoint(path, nil, 0, LineY)
         
         CGContextAddPath(context, path);
         CGContextFillPath(context);
