@@ -10,24 +10,59 @@ import UIKit
 
 public class YXWaveView: UIView {
     
-    public var currentWaterColor: UIColor = UIColor.redColor()
-    public var LineY : CGFloat = 100
-    public var speed : Double = 50
-    private var a: CGFloat = 1.5
-    private var b: CGFloat = 0
-    private var jia: Bool = false
-    private var timer: NSTimer?
+    
+    /**
+     *  浪弯曲度
+     */
+    public var waveCurvature: CGFloat = 1.5
+    /**
+     *  浪速
+     */
+    public var waveSpeed: CGFloat = 0.5
+    
+    /**
+     *  浪高
+     */
+    public var waveHeight: CGFloat = 4
+    /**
+     *  实浪颜色
+     */
+    public var realWaveColor: UIColor = UIColor.redColor()
+    /**
+     *  遮罩浪颜色
+     */
+    public var maskWaveColor: UIColor = UIColor.redColor()
+    
+    private var timer: CADisplayLink?
+    private var realWaveLayer :CAShapeLayer = CAShapeLayer()
+    private var maskWaveLayer :CAShapeLayer = CAShapeLayer()
+    private var offset :CGFloat = 0
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        var frame = self.bounds
+        frame.origin.y = frame.size.height-self.waveHeight;
+        frame.size.height = self.waveHeight;
+        maskWaveLayer.frame = frame
+        realWaveLayer.frame = frame
         self.backgroundColor = UIColor.clearColor()
     }
     
-    public convenience init(frame: CGRect, color:UIColor, y: CGFloat) {
+    public convenience init(frame: CGRect, color:UIColor) {
         self.init(frame: frame)
         
-        currentWaterColor = color
-        LineY = y
+        self.realWaveColor = color
+        self.maskWaveColor = color.colorWithAlphaComponent(0.4)
+        
+        realWaveLayer.fillColor = self.realWaveColor.CGColor
+        maskWaveLayer.fillColor = self.maskWaveColor.CGColor
+        
+        self.layer.addSublayer(self.realWaveLayer)
+        self.layer.addSublayer(self.maskWaveLayer)
+
+
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -36,57 +71,58 @@ public class YXWaveView: UIView {
     
     public func start(speed: Double) {
         stop();
-        timer = NSTimer.scheduledTimerWithTimeInterval(1.0/speed, target: self, selector:#selector(animateWave), userInfo: nil, repeats: true)
+        timer = CADisplayLink(target: self, selector: #selector(wave))
+        timer?.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
     }
     
     public func stop(){
         if (timer != nil) {
-            timer!.invalidate()
+            timer?.invalidate()
             timer = nil
         }
     }
     
-    func animateWave() {
-        if (jia) {
-            a += 0.01
-        } else {
-            a -= 0.01
+    func wave() {
+        offset += self.waveSpeed;
+        
+        let width = CGRectGetWidth(self.frame)
+        let height = self.waveHeight
+        
+        //真实浪
+        let path = CGPathCreateMutable()
+        CGPathMoveToPoint(path, nil, 0, height)
+        var y: CGFloat = 0
+        //遮罩浪
+        let maskpath = CGPathCreateMutable();
+        CGPathMoveToPoint(maskpath, nil, 0, height)
+        var maskY: CGFloat = 0
+        
+        for x in 0...Int(width) {
+            y = CGFloat(height) * CGFloat(sinf(0.01 * Float(waveCurvature) * Float(x) + Float(offset) * 0.045))
+            CGPathAddLineToPoint(path, nil, CGFloat(x), y)
+            maskY = -y;
+            CGPathAddLineToPoint(maskpath, nil, CGFloat(x), maskY)
         }
         
-        if (a <= 1) {
-            jia = true
-        } else if (a >= 1.5) {
-            jia = false
-        }
+        //变化的中间Y值
+        let centX = self.bounds.size.width/2
+        let CentY = CGFloat(height) * CGFloat(sinf(0.01 * Float(waveCurvature) * Float(centX)  + Float(offset) * 0.045))
+//        if (self.waveBlock) {
+//            self.waveBlock(CentY);
+//        }
         
-        b+=0.1;
+        CGPathAddLineToPoint(path, nil, width, height);
+        CGPathAddLineToPoint(path, nil, 0, height);
+        CGPathCloseSubpath(path);
+        self.realWaveLayer.path = path;
+        self.realWaveLayer.fillColor = self.realWaveColor.CGColor;
         
-        self.setNeedsDisplay()
+        CGPathAddLineToPoint(maskpath, nil, width, height);
+        CGPathAddLineToPoint(maskpath, nil, 0, height);
+        CGPathCloseSubpath(maskpath);
+        self.maskWaveLayer.path = maskpath;
+        self.maskWaveLayer.fillColor = self.maskWaveColor.CGColor;
     }
     
-    override public func drawRect(rect: CGRect) {
-        let context = UIGraphicsGetCurrentContext()
-        let path = CGPathCreateMutable()
-        
-        //画水
-        CGContextSetLineWidth(context, 1);
-        CGContextSetFillColorWithColor(context, currentWaterColor.CGColor);
-        
-        var y = LineY;
-        CGPathMoveToPoint(path, nil, 0, y);
-        let width = Int(self.frame.size.width)
-        for x in 0...width {
-            y = a * sin( CGFloat(x)/180*CGFloat(M_PI) + 4*b/CGFloat(M_PI) ) * 5 + LineY
-            CGPathAddLineToPoint(path, nil, CGFloat(x), y)
-        }
-        
-        CGPathAddLineToPoint(path, nil, CGFloat(width), rect.size.height)
-        CGPathAddLineToPoint(path, nil, 0, rect.size.height)
-        CGPathAddLineToPoint(path, nil, 0, LineY)
-        
-        CGContextAddPath(context, path);
-        CGContextFillPath(context);
-        CGContextDrawPath(context, .Stroke);
-    }
     
 }

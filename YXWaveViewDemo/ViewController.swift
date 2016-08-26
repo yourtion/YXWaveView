@@ -15,9 +15,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = UIColor.redColor()
-        let waterView = YXWaveView(frame: self.view.bounds, color: UIColor.whiteColor(), y: 250)
         
+        let frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: 200)
+        let waterView = YXWaveView(frame: frame, color: UIColor.whiteColor())
+        let bgframe = CGRect(x: 0, y: 200, width: self.view.bounds.size.width, height: self.view.bounds.size.height - 200)
+        let bgView = UIView(frame: bgframe)
+        bgView.backgroundColor = UIColor.whiteColor();
         self.view.addSubview(waterView)
+        self.view.addSubview(bgView)
         waterView.start(20)
     }
 
