@@ -15,9 +15,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = UIColor.redColor()
-        let waterView = YXWaveView(frame: self.view.bounds, color: UIColor.blueColor(), y: 250)
+        let waterView = YXWaveView(frame: self.view.bounds, color: UIColor.whiteColor(), y: 250)
         
         self.view.addSubview(waterView)
+        waterView.start(20)
     }
 
     override func didReceiveMemoryWarning() {

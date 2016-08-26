@@ -12,8 +12,23 @@
 		CB79FF891D70035B00971FC3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB79FF871D70035B00971FC3 /* Main.storyboard */; };
 		CB79FF8B1D70035B00971FC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB79FF8A1D70035B00971FC3 /* Assets.xcassets */; };
 		CB79FF8E1D70035B00971FC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB79FF8C1D70035B00971FC3 /* LaunchScreen.storyboard */; };
-		CB79FF9C1D70041600971FC3 /* YXWaveView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB79FF9B1D70041600971FC3 /* YXWaveView.framework */; };
+		CB79FF9F1D70150F00971FC3 /* YXWaveView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB79FF9B1D70041600971FC3 /* YXWaveView.framework */; };
+		CB79FFA01D70150F00971FC3 /* YXWaveView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB79FF9B1D70041600971FC3 /* YXWaveView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CB79FFA11D70150F00971FC3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CB79FFA01D70150F00971FC3 /* YXWaveView.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		CB79FF801D70035B00971FC3 /* YXWaveViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YXWaveViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -31,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB79FF9C1D70041600971FC3 /* YXWaveView.framework in Frameworks */,
+				CB79FF9F1D70150F00971FC3 /* YXWaveView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +93,7 @@
 				CB79FF7C1D70035B00971FC3 /* Sources */,
 				CB79FF7D1D70035B00971FC3 /* Frameworks */,
 				CB79FF7E1D70035B00971FC3 /* Resources */,
+				CB79FFA11D70150F00971FC3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

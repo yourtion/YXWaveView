@@ -10,23 +10,17 @@ import UIKit
 
 public class YXWaveView: UIView {
     
-    public var currentWaterColor: UIColor
-    public var LineY : CGFloat = 0
-    private var a: CGFloat
-    private var b: CGFloat
-    private var jia: Bool
+    public var currentWaterColor: UIColor = UIColor.redColor()
+    public var LineY : CGFloat = 100
+    public var speed : Double = 50
+    private var a: CGFloat = 1.5
+    private var b: CGFloat = 0
+    private var jia: Bool = false
+    private var timer: NSTimer?
     
-    override public init(frame: CGRect) {
-        a = 1.5;
-        b = 0;
-        jia = false;
-        currentWaterColor = UIColor.redColor() //[UIColor colorWithRed:86/255.0f green:202/255.0f blue:139/255.0f alpha:1];
-        LineY = 250
-        
+    override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clearColor()
-        
-        NSTimer.scheduledTimerWithTimeInterval(0.02, target: self, selector:#selector(animateWave), userInfo: nil, repeats: true)
     }
     
     public convenience init(frame: CGRect, color:UIColor, y: CGFloat) {
@@ -38,6 +32,18 @@ public class YXWaveView: UIView {
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public func start(speed: Double) {
+        stop();
+        timer = NSTimer.scheduledTimerWithTimeInterval(1.0/speed, target: self, selector:#selector(animateWave), userInfo: nil, repeats: true)
+    }
+    
+    public func stop(){
+        if (timer != nil) {
+            timer!.invalidate()
+            timer = nil
+        }
     }
     
     func animateWave() {
@@ -74,7 +80,7 @@ public class YXWaveView: UIView {
             CGPathAddLineToPoint(path, nil, CGFloat(x), y)
         }
         
-        CGPathAddLineToPoint(path, nil, 320, rect.size.height)
+        CGPathAddLineToPoint(path, nil, CGFloat(width), rect.size.height)
         CGPathAddLineToPoint(path, nil, 0, rect.size.height)
         CGPathAddLineToPoint(path, nil, 0, LineY)
         
