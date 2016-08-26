@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = UIColor(red: 248/255, green: 64/255, blue: 87/255, alpha: 1)
         
-        let avatarFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        let avatarFrame = CGRect(x: 0, y: 0, width: 60, height: 60)
         let avatarView = UIImageView(frame: avatarFrame)
         avatarView.layer.cornerRadius = CGRectGetHeight(avatarView.bounds)/2
         avatarView.layer.masksToBounds = true

@@ -97,9 +97,9 @@ public class YXWaveView: UIView {
         
         //变化的中间Y值
         let centX = self.bounds.size.width/2
-        let CentY = CGFloat(height) * CGFloat(sinf(0.01 * Float(waveCurvature) * Float(centX)  + Float(offset) * 0.045))
+        let centY = CGFloat(height) * CGFloat(sinf(0.01 * Float(waveCurvature) * Float(centX)  + Float(offset) * 0.045))
         if (overView != nil) {
-            let center = CGPoint(x: centX , y: CentY + overView!.bounds.size.height - waveHeight - 1 )
+            let center = CGPoint(x: centX , y: centY + self.bounds.size.height - overView!.bounds.size.height/2 - waveHeight - 1 )
             overView?.center = center;
         }
         
