@@ -1,21 +1,21 @@
-# YXWaveView [中文说明](README_CN.md)
+# YXWaveView [English](README.md)
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Version](https://img.shields.io/cocoapods/v/YXWaveView.svg?style=flat)](http://cocoapods.org/pods/YXWaveView)
 [![License](https://img.shields.io/cocoapods/l/YXWaveView.svg?style=flat)](http://cocoapods.org/pods/YXWaveView)
 [![Platform](https://img.shields.io/cocoapods/p/YXWaveView.svg?style=flat)](http://cocoapods.org/pods/YXWaveView)
 
-A water wave animation view with a over view float.
+波浪View，类似百度外卖的头像波浪效果。
 
-## ScreenShot 
+## 截图 
 
 ![ScreenShot](ScreenShot.gif)
 
-## Installl
+## 安装
 
 #### CocoaPod
 
-`Podfile` add this:
+在 `Podfile` 中添加：
 
 ```
 platform :ios, '8.0'
@@ -23,7 +23,7 @@ platform :ios, '8.0'
 pod 'YXWaveView'
 ```
 
-Run `pod install`
+运行 `pod install` 安装
 
 #### Carthage
 
@@ -31,42 +31,42 @@ Run `pod install`
 github "yourtion/YXWaveView"
 ```
 
-## How to use
+## 使用方法
 
 ```swift
-// Init
+// 初始化
 let frame = CGRect(x: 0, y: 50, width: self.view.bounds.size.width, height: 150)
 let waterView = YXWaveView(frame: frame, color: UIColor.whiteColor())
 waterView.addOverView(avatarView);
 
-// Add OverView
+// 添加浮动层
 waterView.addOverView(overView);
 
-// Start
+// 开始动画
 waterView.start()
 
-// Stop
+// 停止动画
 waterView.stop()
 ```
 
 
-### Settings
+### 参数设置
 
 ```swift
-// real wave color
+// 实浪颜色
 waterView.realWaveColor = UIColor.blueColor()
 
-// mask wave color
+// 遮罩浪颜色
 waterView.maskWaveColor = UIColor.blackColor()
 
-// wave speed (default: 0.6)
+// 波浪速度 (默认: 0.6)
 waterView.waveSpeed = 0.5
 
-// wave height (default: 5)
+// 浪高 (默认: 5)
 waterView.waveHeight = 6
 
-// wave curvature (default: 1.5)
+// 波浪弯曲程度 (默认: 1.5)
 waterView.waveCurvature = 1.2
 ```
 
-Lookup [Demo](YXWaveViewDemo/ViewController.swift) so see detail.
+查看 [Demo](YXWaveViewDemo/ViewController.swift) 了解详细使用方法。
