@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "YXWaveView"
-  s.version      = "0.2.0"
+  s.version      = "0.3.0"
   s.summary      = "A water wave animation view"
 
   s.description  = <<-DESC
