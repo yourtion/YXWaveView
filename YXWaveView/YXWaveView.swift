@@ -17,9 +17,17 @@ public class YXWaveView: UIView {
     /// wave height (default: 5)
     public var waveHeight: CGFloat = 5
     /// real wave color
-    public var realWaveColor: UIColor = UIColor.redColor()
+    public var realWaveColor: UIColor = UIColor.redColor() {
+        didSet {
+            self.realWaveLayer.fillColor = self.realWaveColor.CGColor
+        }
+    }
     /// mask wave color
-    public var maskWaveColor: UIColor = UIColor.redColor()
+    public var maskWaveColor: UIColor = UIColor.redColor() {
+        didSet {
+            self.maskWaveLayer.fillColor = self.maskWaveColor.CGColor
+        }
+    }
     /// float over View
     public var overView: UIView?
     
@@ -112,7 +120,7 @@ public class YXWaveView: UIView {
         offset += waveSpeed;
         
         let width = CGRectGetWidth(frame)
-        let height = waveHeight
+        let height = CGFloat(waveHeight)
         
         let path = CGPathCreateMutable()
         CGPathMoveToPoint(path, nil, 0, height)
@@ -120,18 +128,19 @@ public class YXWaveView: UIView {
 
         let maskpath = CGPathCreateMutable();
         CGPathMoveToPoint(maskpath, nil, 0, height)
-        var maskY: CGFloat = 0
+        
+        let offset_f = Float(offset * 0.045)
+        let waveCurvature_f = Float(0.01 * waveCurvature)
         
         for x in 0...Int(width) {
-            y = CGFloat(height) * CGFloat(sinf(0.01 * Float(waveCurvature) * Float(x) + Float(offset) * 0.045))
+            y = height * CGFloat(sinf( waveCurvature_f * Float(x) + offset_f))
             CGPathAddLineToPoint(path, nil, CGFloat(x), y)
-            maskY = -y;
-            CGPathAddLineToPoint(maskpath, nil, CGFloat(x), maskY)
+            CGPathAddLineToPoint(maskpath, nil, CGFloat(x), -y)
         }
         
         if (overView != nil) {
             let centX = self.bounds.size.width/2
-            let centY = CGFloat(height) * CGFloat(sinf(0.01 * Float(waveCurvature) * Float(centX)  + Float(offset) * 0.045))
+            let centY = height * CGFloat(sinf(waveCurvature_f * Float(centX)  + offset_f))
             let center = CGPoint(x: centX , y: centY + self.bounds.size.height - overView!.bounds.size.height/2 - waveHeight - 1 )
             overView?.center = center;
         }
@@ -140,13 +149,11 @@ public class YXWaveView: UIView {
         CGPathAddLineToPoint(path, nil, 0, height)
         CGPathCloseSubpath(path)
         self.realWaveLayer.path = path
-        self.realWaveLayer.fillColor = self.realWaveColor.CGColor
         
         CGPathAddLineToPoint(maskpath, nil, width, height)
         CGPathAddLineToPoint(maskpath, nil, 0, height)
         CGPathCloseSubpath(maskpath)
         self.maskWaveLayer.path = maskpath
-        self.maskWaveLayer.fillColor = self.maskWaveColor.CGColor
     }
     
     

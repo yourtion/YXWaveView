@@ -49,4 +49,24 @@ waterView.start()
 waterView.stop()
 ```
 
-Detail [Demo](YXWaveViewDemo/ViewController.swift)
+
+### Settings
+
+```swift
+// real wave color
+waterView.realWaveColor = UIColor.blueColor()
+
+// mask wave color
+waterView.maskWaveColor = UIColor.blackColor()
+
+// wave speed (default: 0.6)
+waterView.waveSpeed = 0.5
+
+// wave height (default: 5)
+waterView.waveHeight = 6
+
+// wave curvature (default: 1.5)
+waterView.waveCurvature = 1.2
+```
+
+Lookup [Demo](YXWaveViewDemo/ViewController.swift) so see detail.
