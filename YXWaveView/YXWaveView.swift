@@ -91,6 +91,7 @@ public class YXWaveView: UIView {
     public func addOverView(view: UIView) {
         overView = view
         overView?.center = self.center
+        overView?.frame.origin.y = self.frame.height - (overView?.frame.height)!
         self.addSubview(overView!)
     }
     
