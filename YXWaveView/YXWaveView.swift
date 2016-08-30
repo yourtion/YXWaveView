@@ -40,6 +40,12 @@ public class YXWaveView: UIView {
     /// offset
     private var offset :CGFloat = 0
     
+    private var _waveCurvature: CGFloat = 0
+    private var _waveSpeed: CGFloat = 0
+    private var _waveHeight: CGFloat = 0
+    private var _starting: Bool = false
+    private var _stoping: Bool = false
+    
     /**
      Init view
      
@@ -51,8 +57,8 @@ public class YXWaveView: UIView {
         super.init(frame: frame)
         
         var frame = self.bounds
-        frame.origin.y = frame.size.height-self.waveHeight;
-        frame.size.height = self.waveHeight;
+        frame.origin.y = frame.size.height;
+        frame.size.height = 0;
         maskWaveLayer.frame = frame
         realWaveLayer.frame = frame
         self.backgroundColor = UIColor.clearColor()
@@ -99,18 +105,33 @@ public class YXWaveView: UIView {
      Start wave
      */
     public func start() {
-        stop();
-        timer = CADisplayLink(target: self, selector: #selector(wave))
-        timer?.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
+        if !_starting {
+            _stop();
+            _starting = true
+            _stoping = false
+            _waveHeight = 0
+            _waveCurvature = 0
+            _waveSpeed = 0
+            
+            timer = CADisplayLink(target: self, selector: #selector(wave))
+            timer?.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
+        }
     }
     
     /**
      Stop wave
      */
-    public func stop(){
+    public func _stop(){
         if (timer != nil) {
             timer?.invalidate()
             timer = nil
+        }
+    }
+    
+    public func stop(){
+        if !_stoping {
+            _starting = false
+            _stoping = true
         }
     }
     
@@ -118,10 +139,42 @@ public class YXWaveView: UIView {
      Wave animation
      */
     func wave() {
-        offset += waveSpeed;
+        
+        if _starting {
+            if _waveHeight < waveHeight {
+                _waveHeight = _waveHeight + waveHeight/100.0
+                var frame = self.bounds
+                frame.origin.y = frame.size.height-_waveHeight;
+                frame.size.height = _waveHeight;
+                maskWaveLayer.frame = frame
+                realWaveLayer.frame = frame
+                _waveCurvature = _waveCurvature + waveCurvature / 100.0
+                _waveSpeed = _waveSpeed + waveSpeed / 100.0
+            } else {
+                _starting = false
+            }
+        }
+        
+        if _stoping {
+            if _waveHeight > 0 {
+                _waveHeight = _waveHeight - waveHeight/50.0
+                var frame = self.bounds
+                frame.origin.y = frame.size.height;
+                frame.size.height = _waveHeight;
+                maskWaveLayer.frame = frame
+                realWaveLayer.frame = frame
+                _waveCurvature = _waveCurvature - waveCurvature / 50.0
+                _waveSpeed = _waveSpeed - waveSpeed / 50.0
+            } else {
+                _stoping = false
+                _stop()
+            }
+        }
+        
+        offset += _waveSpeed;
         
         let width = CGRectGetWidth(frame)
-        let height = CGFloat(waveHeight)
+        let height = CGFloat(_waveHeight)
         
         let path = CGPathCreateMutable()
         CGPathMoveToPoint(path, nil, 0, height)
@@ -131,7 +184,7 @@ public class YXWaveView: UIView {
         CGPathMoveToPoint(maskpath, nil, 0, height)
         
         let offset_f = Float(offset * 0.045)
-        let waveCurvature_f = Float(0.01 * waveCurvature)
+        let waveCurvature_f = Float(0.01 * _waveCurvature)
         
         for x in 0...Int(width) {
             y = height * CGFloat(sinf( waveCurvature_f * Float(x) + offset_f))
@@ -142,7 +195,7 @@ public class YXWaveView: UIView {
         if (overView != nil) {
             let centX = self.bounds.size.width/2
             let centY = height * CGFloat(sinf(waveCurvature_f * Float(centX)  + offset_f))
-            let center = CGPoint(x: centX , y: centY + self.bounds.size.height - overView!.bounds.size.height/2 - waveHeight - 1 )
+            let center = CGPoint(x: centX , y: centY + self.bounds.size.height - overView!.bounds.size.height/2 - _waveHeight - 1 )
             overView?.center = center;
         }
         
@@ -155,6 +208,7 @@ public class YXWaveView: UIView {
         CGPathAddLineToPoint(maskpath, nil, 0, height)
         CGPathCloseSubpath(maskpath)
         self.maskWaveLayer.path = maskpath
+        
     }
     
     
