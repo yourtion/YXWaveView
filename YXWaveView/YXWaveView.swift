@@ -8,43 +8,43 @@
 
 import UIKit
 
-public class YXWaveView: UIView {
+open class YXWaveView: UIView {
 
     /// wave curvature (default: 1.5)
-    public var waveCurvature: CGFloat = 1.5
+    open var waveCurvature: CGFloat = 1.5
     /// wave speed (default: 0.6)
-    public var waveSpeed: CGFloat = 0.6
+    open var waveSpeed: CGFloat = 0.6
     /// wave height (default: 5)
-    public var waveHeight: CGFloat = 5
+    open var waveHeight: CGFloat = 5
     /// real wave color
-    public var realWaveColor: UIColor = UIColor.redColor() {
+    open var realWaveColor: UIColor = UIColor.red {
         didSet {
-            self.realWaveLayer.fillColor = self.realWaveColor.CGColor
+            self.realWaveLayer.fillColor = self.realWaveColor.cgColor
         }
     }
     /// mask wave color
-    public var maskWaveColor: UIColor = UIColor.redColor() {
+    open var maskWaveColor: UIColor = UIColor.red {
         didSet {
-            self.maskWaveLayer.fillColor = self.maskWaveColor.CGColor
+            self.maskWaveLayer.fillColor = self.maskWaveColor.cgColor
         }
     }
     /// float over View
-    public var overView: UIView?
+    open var overView: UIView?
     
     /// wave timmer
-    private var timer: CADisplayLink?
+    fileprivate var timer: CADisplayLink?
     /// real aave
-    private var realWaveLayer :CAShapeLayer = CAShapeLayer()
+    fileprivate var realWaveLayer :CAShapeLayer = CAShapeLayer()
     /// mask wave
-    private var maskWaveLayer :CAShapeLayer = CAShapeLayer()
+    fileprivate var maskWaveLayer :CAShapeLayer = CAShapeLayer()
     /// offset
-    private var offset :CGFloat = 0
+    fileprivate var offset :CGFloat = 0
     
-    private var _waveCurvature: CGFloat = 0
-    private var _waveSpeed: CGFloat = 0
-    private var _waveHeight: CGFloat = 0
-    private var _starting: Bool = false
-    private var _stoping: Bool = false
+    fileprivate var _waveCurvature: CGFloat = 0
+    fileprivate var _waveSpeed: CGFloat = 0
+    fileprivate var _waveHeight: CGFloat = 0
+    fileprivate var _starting: Bool = false
+    fileprivate var _stoping: Bool = false
     
     /**
      Init view
@@ -61,7 +61,7 @@ public class YXWaveView: UIView {
         frame.size.height = 0;
         maskWaveLayer.frame = frame
         realWaveLayer.frame = frame
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
     }
     
     /**
@@ -76,10 +76,10 @@ public class YXWaveView: UIView {
         self.init(frame: frame)
         
         self.realWaveColor = color
-        self.maskWaveColor = color.colorWithAlphaComponent(0.4)
+        self.maskWaveColor = color.withAlphaComponent(0.4)
         
-        realWaveLayer.fillColor = self.realWaveColor.CGColor
-        maskWaveLayer.fillColor = self.maskWaveColor.CGColor
+        realWaveLayer.fillColor = self.realWaveColor.cgColor
+        maskWaveLayer.fillColor = self.maskWaveColor.cgColor
         
         self.layer.addSublayer(self.realWaveLayer)
         self.layer.addSublayer(self.maskWaveLayer)
@@ -94,7 +94,7 @@ public class YXWaveView: UIView {
      
      - parameter view: overview
      */
-    public func addOverView(view: UIView) {
+    open func addOverView(_ view: UIView) {
         overView = view
         overView?.center = self.center
         overView?.frame.origin.y = self.frame.height - (overView?.frame.height)!
@@ -104,7 +104,7 @@ public class YXWaveView: UIView {
     /**
      Start wave
      */
-    public func start() {
+    open func start() {
         if !_starting {
             _stop();
             _starting = true
@@ -114,21 +114,21 @@ public class YXWaveView: UIView {
             _waveSpeed = 0
             
             timer = CADisplayLink(target: self, selector: #selector(wave))
-            timer?.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
+            timer?.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
         }
     }
     
     /**
      Stop wave
      */
-    public func _stop(){
+    open func _stop(){
         if (timer != nil) {
             timer?.invalidate()
             timer = nil
         }
     }
     
-    public func stop(){
+    open func stop(){
         if !_stoping {
             _starting = false
             _stoping = true
@@ -173,23 +173,23 @@ public class YXWaveView: UIView {
         
         offset += _waveSpeed;
         
-        let width = CGRectGetWidth(frame)
+        let width = frame.width
         let height = CGFloat(_waveHeight)
         
-        let path = CGPathCreateMutable()
-        CGPathMoveToPoint(path, nil, 0, height)
+        let path = CGMutablePath()
+        path.move(to: CGPoint(x: 0, y: height))
         var y: CGFloat = 0
 
-        let maskpath = CGPathCreateMutable();
-        CGPathMoveToPoint(maskpath, nil, 0, height)
+        let maskpath = CGMutablePath();
+        maskpath.move(to: CGPoint(x: 0, y: height))
         
         let offset_f = Float(offset * 0.045)
         let waveCurvature_f = Float(0.01 * _waveCurvature)
         
         for x in 0...Int(width) {
             y = height * CGFloat(sinf( waveCurvature_f * Float(x) + offset_f))
-            CGPathAddLineToPoint(path, nil, CGFloat(x), y)
-            CGPathAddLineToPoint(maskpath, nil, CGFloat(x), -y)
+            path.addLine(to: CGPoint(x: CGFloat(x), y: y))
+            maskpath.addLine(to: CGPoint(x: CGFloat(x), y: -y))
         }
         
         if (overView != nil) {
@@ -199,14 +199,16 @@ public class YXWaveView: UIView {
             overView?.center = center;
         }
         
-        CGPathAddLineToPoint(path, nil, width, height)
-        CGPathAddLineToPoint(path, nil, 0, height)
-        CGPathCloseSubpath(path)
+        path.addLine(to: CGPoint(x: width, y: height))
+        path.addLine(to: CGPoint(x: 0, y: height))
+
+        path.closeSubpath()
         self.realWaveLayer.path = path
         
-        CGPathAddLineToPoint(maskpath, nil, width, height)
-        CGPathAddLineToPoint(maskpath, nil, 0, height)
-        CGPathCloseSubpath(maskpath)
+        maskpath.addLine(to: CGPoint(x: width, y: height))
+        maskpath.addLine(to: CGPoint(x: 0, y: height))
+
+        maskpath.closeSubpath()
         self.maskWaveLayer.path = maskpath
         
     }
