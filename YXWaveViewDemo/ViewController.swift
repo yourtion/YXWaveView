@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         
         let frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: 200)
         waterView = YXWaveView(frame: frame, color: UIColor.white)
-        waterView!.addOverView(avatarView);
+        waterView!.addOverView(avatarView)
         waterView!.backgroundColor = UIColor(red: 248/255, green: 64/255, blue: 87/255, alpha: 1)
         
         // Add WaveView
