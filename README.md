@@ -35,12 +35,11 @@ github "yourtion/YXWaveView"
 
 ```swift
 // Init
-let frame = CGRect(x: 0, y: 50, width: self.view.bounds.size.width, height: 150)
-let waterView = YXWaveView(frame: frame, color: UIColor.whiteColor())
-waterView.addOverView(avatarView);
+let frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: 200)
+let waterView = YXWaveView(frame: frame, color: UIColor.white)
 
 // Add OverView
-waterView.addOverView(overView);
+waterView.addOverView(overView)
 
 // Start
 waterView.start()
@@ -54,10 +53,10 @@ waterView.stop()
 
 ```swift
 // real wave color
-waterView.realWaveColor = UIColor.blueColor()
+waterView.realWaveColor = UIColor.blue
 
 // mask wave color
-waterView.maskWaveColor = UIColor.blackColor()
+waterView.maskWaveColor = UIColor.black
 
 // wave speed (default: 0.6)
 waterView.waveSpeed = 0.5

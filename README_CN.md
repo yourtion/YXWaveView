@@ -35,12 +35,11 @@ github "yourtion/YXWaveView"
 
 ```swift
 // 初始化
-let frame = CGRect(x: 0, y: 50, width: self.view.bounds.size.width, height: 150)
-let waterView = YXWaveView(frame: frame, color: UIColor.whiteColor())
-waterView.addOverView(avatarView);
+let frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: 200)
+let waterView = YXWaveView(frame: frame, color: UIColor.white)
 
 // 添加浮动层
-waterView.addOverView(overView);
+waterView.addOverView(overView)
 
 // 开始动画
 waterView.start()
@@ -54,10 +53,10 @@ waterView.stop()
 
 ```swift
 // 实浪颜色
-waterView.realWaveColor = UIColor.blueColor()
+waterView.realWaveColor = UIColor.blue
 
 // 遮罩浪颜色
-waterView.maskWaveColor = UIColor.blackColor()
+waterView.maskWaveColor = UIColor.black
 
 // 波浪速度 (默认: 0.6)
 waterView.waveSpeed = 0.5
