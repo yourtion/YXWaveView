@@ -113,8 +113,8 @@ open class YXWaveView: UIView {
             _waveCurvature = 0
             _waveSpeed = 0
             
-            timer = CADisplayLink(target: self, selector: #selector(wave))
-            timer?.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
+          timer = CADisplayLink(target: self, selector: #selector(wave))
+          timer?.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
         }
     }
     
@@ -138,7 +138,7 @@ open class YXWaveView: UIView {
     /**
      Wave animation
      */
-    func wave() {
+  @objc func wave() {
         
         if _starting {
             if _waveHeight < waveHeight {
