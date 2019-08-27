@@ -139,7 +139,11 @@ open class YXWaveView: UIView {
      Wave animation
      */
   @objc func wave() {
-        
+        // when view is not visible
+        if overView?.window == nil {
+            return
+        }
+
         if _starting {
             if _waveHeight < waveHeight {
                 _waveHeight = _waveHeight + waveHeight/100.0
