@@ -114,7 +114,7 @@ open class YXWaveView: UIView {
       _waveSpeed = 0
 
       timer = CADisplayLink(target: self, selector: #selector(wave))
-      timer?.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
+      timer?.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
     }
   }
 
