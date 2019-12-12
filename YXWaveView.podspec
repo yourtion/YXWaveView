@@ -13,6 +13,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/yourtion/YXWaveView.git", :tag => s.version  }
   s.screenshots  = "https://raw.githubusercontent.com/yourtion/YXWaveView/master/ScreenShot.gif"
   s.source_files = "YXWaveView"
+  s.swift_version = "5.0"
   
   s.ios.deployment_target = '8.0'
   
