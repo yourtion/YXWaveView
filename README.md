@@ -18,7 +18,7 @@ A water wave animation view with a over view float.
 `Podfile` add this:
 
 ```
-platform :ios, '8.0'
+platform :ios, '11.0'
 
 pod 'YXWaveView'
 ```

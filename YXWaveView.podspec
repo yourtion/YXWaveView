@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.source_files = "YXWaveView"
   s.swift_version = "5.0"
   
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '11.0'
   
   s.frameworks  = "Foundation"
   s.requires_arc = true
